@@ -12,11 +12,11 @@ var randomQuoteGenerator = {
     }
 };
 
-function displayQuote() {
-    var element = document.getElementById("quote");
+function displayQuoteAndAddShareButton() {
+    var quoteElement = document.getElementById("quote");
     var quote = randomQuoteGenerator.generateRandomQuote();
     var formattedQuote = quote.text + " - " + quote.person;
-    element.innerHTML = formattedQuote;
+    quoteElement.innerHTML = formattedQuote;
     var shareButton = document.getElementById("twitter-share-section");
     shareButton.innerHTML = '<a id="tweet" class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="' + formattedQuote + '" data-hashtags="quotes" data-related="twitterapi,twitter">Tweet</a>';
     twttr.widgets.load();
@@ -39,10 +39,9 @@ window.twttr = (function(d, s, id) {
   return t;
 }(document, "script", "twitter-wjs"));
 
-function displayQuoteOnButtonClick() {
+window.onload = function() {
     var button = document.getElementById("button");
-    button.onclick = displayQuote;
+    button.onclick = displayQuoteAndAddShareButton;
+    displayQuoteAndAddShareButton();
 }
-
-window.onload = displayQuoteOnButtonClick;
 
