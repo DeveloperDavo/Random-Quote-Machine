@@ -17,13 +17,32 @@ function displayQuote() {
     var quote = randomQuoteGenerator.generateRandomQuote();
     var formattedQuote = quote.text + " - " + quote.person;
     element.innerHTML = formattedQuote;
-    console.log(formattedQuote);
+    var shareButton = document.getElementById("twitter-share-section");
+    shareButton.innerHTML = '<a id="tweet" class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="' + formattedQuote + '" data-hashtags="quotes" data-related="twitterapi,twitter">Tweet</a>';
+    twttr.widgets.load();
 };
 
-function onButtonClick() {
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function displayQuoteOnButtonClick() {
     var button = document.getElementById("button");
     button.onclick = displayQuote;
-};
+}
 
-window.onload = onButtonClick();
+window.onload = displayQuoteOnButtonClick;
 
