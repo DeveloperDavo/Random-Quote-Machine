@@ -1,10 +1,14 @@
 body {
+    margin-top: 60px;
     background-color: #a3d5d3;
 }
 
-.test {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+.quote-block {
+    margin-top: 100px;
+    padding: 20px;
+    background: white;
+}
+
+#quote {
+    padding: 20px 0 20px 0;
 }
