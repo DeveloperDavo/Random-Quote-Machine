@@ -1,3 +1,10 @@
 body {
     background-color: #a3d5d3;
 }
+
+.test {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
