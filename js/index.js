@@ -1,48 +1,51 @@
+function Quote(text, author) {
+    this.text = text;
+    this.author = author;
+}
+
 var model = {
     quotes: [
-        {text: "Life is about making an impact, not making an income.", person: "Kevin Kruse"},
-        {text: "Whatever the mind of man can conceive and believe, it can achieve.", person: "Napoleon Hill"},
-        {text: "Strive not to be a success, but rather to be of value.", person: "Albert Einstein"},
-        {
-            text: "Two roads diverged in a wood, and I—I took the one less traveled by, And that has made all the difference.",
-            person: "Robert Frost"
-        },
-        {text: "I attribute my success to this: I never gave or took any excuse.", person: "Florence Nightingale"}
+        new Quote("Life is about making an impact, not making an income.", "Kevin Kruse"),
+        new Quote("Whatever the mind of man can conceive and believe, it can achieve.", "Napoleon Hill"),
+        new Quote("Strive not to be a success, but rather to be of value.", "Albert Einstein"),
+        new Quote("Two roads diverged in a wood, and I—I took the one less traveled by, And that has made all the difference.", "Robert Frost"),
+        new Quote("I attribute my success to this: I never gave or took any excuse.", "Florence Nightingale")
     ],
-    generateRandomQuote: function () {
+
+    getQuote: function () {
         var index = Math.floor(Math.random() * this.quotes.length);
         return this.quotes[index];
     }
+
 };
 
 var view = {
-    displayQuote: function (formattedQuote) {
+    formatQuote: function (quote) {
+        return quote.text + " - " + quote.author;
+    },
+
+    displayQuote: function (quote) {
         var quoteElement = document.getElementById("quote");
-        quoteElement.innerHTML = formattedQuote;
+        quoteElement.innerHTML = this.formatQuote(quote);
     },
 
     // http://stackoverflow.com/questions/9215806/how-to-update-the-twitter-share-button-url-with-dynamic-content
-    displayShareButton: function (formattedQuote) {
+    displayShareButton: function (quote) {
         var shareButton = document.getElementById("twitter-share-section");
-        shareButton.innerHTML = '<a id="tweet" class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="' + formattedQuote + '" data-hashtags="quotes" data-related="twitterapi,twitter">Tweet</a>';
+        shareButton.innerHTML = '<a id="tweet" class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="' + this.formatQuote(quote) + '" data-hashtags="quotes" data-related="twitterapi,twitter">Tweet</a>';
     }
 
-}
+};
 
 var controller = {
-    formatQuote: function () {
-        var quote = model.generateRandomQuote();
-        return quote.text + " - " + quote.person;
-    },
+    generateNewQuote: function () {
+        var quote = model.getQuote();
 
-    displayFormattedQuoteAndLoadShareButton: function () {
-        var formattedQuote = controller.formatQuote();
-
-        view.displayQuote(formattedQuote);
-        view.displayShareButton(formattedQuote);
+        view.displayQuote(quote);
+        view.displayShareButton(quote);
         twttr.widgets.load();
     }
-}
+};
 
 /**
  * From https://dev.twitter.com/web/javascript/loading:
@@ -68,9 +71,9 @@ window.twttr = (function (d, s, id) {
 }(document, "script", "twitter-wjs"));
 
 window.onload = function () {
+    controller.generateNewQuote();
     var button = document.getElementById("new-quote-button");
-    button.onclick = controller.displayFormattedQuoteAndLoadShareButton;
+    button.onclick = controller.generateNewQuote;
 
-    controller.displayFormattedQuoteAndLoadShareButton();
-}
+};
 
