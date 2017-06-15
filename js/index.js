@@ -44,7 +44,12 @@ var controller = {
     }
 }
 
-// https://dev.twitter.com/web/javascript/loading
+/**
+ * From https://dev.twitter.com/web/javascript/loading:
+ * 1. Assign a HTML element ID of twitter-wjs to easily identify if the JavaScript file already exists on the page. Exit early if the ID already exists.
+ * 2. Asynchronously load Twitter’s widget JavaScript.
+ * 3. Initialize an asynchronous function queue to hold functions dependent on Twitter’s widgets JavaScript until the script is available.
+ */
 window.twttr = (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -63,7 +68,7 @@ window.twttr = (function (d, s, id) {
 }(document, "script", "twitter-wjs"));
 
 window.onload = function () {
-    var button = document.getElementById("button");
+    var button = document.getElementById("new-quote-button");
     button.onclick = controller.displayFormattedQuoteAndLoadShareButton;
 
     controller.displayFormattedQuoteAndLoadShareButton();
