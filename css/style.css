@@ -3,12 +3,13 @@ body {
     background-color: #a3d5d3;
 }
 
-.quote-block {
-    margin-top: 100px;
-    padding: 20px;
-    background: white;
-}
-
 #quote {
     padding: 20px 0 20px 0;
+}
+
+#quote-block {
+    margin: 100px auto auto auto;
+    width: 40%;
+    padding: 20px;
+    background: white;
 }
