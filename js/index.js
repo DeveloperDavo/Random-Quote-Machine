@@ -29,10 +29,9 @@ var view = {
         quoteElement.innerHTML = this.formatQuote(quote);
     },
 
-    // http://stackoverflow.com/questions/9215806/how-to-update-the-twitter-share-button-url-with-dynamic-content
     displayShareButton: function (quote) {
-        var shareButton = document.getElementById("twitter-share-section");
-        shareButton.innerHTML = '<a id="tweet" class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="' + this.formatQuote(quote) + '" data-hashtags="quotes" data-related="twitterapi,twitter">Tweet</a>';
+        var tweetLink = document.getElementById("tweet-link");
+        tweetLink.href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(this.formatQuote(quote)) + "&hashtags=quotes";
     }
 
 };
@@ -43,32 +42,8 @@ var controller = {
 
         view.displayQuote(quote);
         view.displayShareButton(quote);
-        twttr.widgets.load();
     }
 };
-
-/**
- * From https://dev.twitter.com/web/javascript/loading:
- * 1. Assign a HTML element ID of twitter-wjs to easily identify if the JavaScript file already exists on the page. Exit early if the ID already exists.
- * 2. Asynchronously load Twitter’s widget JavaScript.
- * 3. Initialize an asynchronous function queue to hold functions dependent on Twitter’s widgets JavaScript until the script is available.
- */
-window.twttr = (function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-
-    t._e = [];
-    t.ready = function (f) {
-        t._e.push(f);
-    };
-
-    return t;
-}(document, "script", "twitter-wjs"));
 
 window.onload = function () {
     controller.generateNewQuote();

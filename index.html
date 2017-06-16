@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -17,10 +18,12 @@
 <div class="container-fluid">
     <div id="quote-block" class="img-rounded">
         <p id="quote"></p>
-        <div id="twitter-share-section"></div>
         <button id="new-quote-button" class="btn btn-primary">New Quote</button>
-        <!--<a id=twitter-share-button" class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world" data-size="large">-->
-            <!--Tweet</a>-->
+        <a id="tweet-link" href="#">
+            <button id="tweet-button" class="btn btn-primary">Tweet
+                <i class="fa fa-twitter twitter-share-button"></i>
+            </button>
+        </a>
     </div>
 </div>
 
